@@ -1,0 +1,1104 @@
+MP3 파일은 여러 블럭들의 집합으로 이루어져 있다. 블럭에는 ID3v1, ID3v2 등의 태그들과 AAU(Audio Access Unit)들로 이루어져 있다. 특히 ID3v2 태그는 선택적으로 여러개 들어갈 수 있다.
+    	<table class="wikitable">
+			<tr>
+		<td>ID3v2</td>
+		<td>AAU</td>
+		<td>AAU</td>
+		<td>...</td>
+		<td>AAU</td>
+		<td>APE Tags</td>
+		<td>Lyrics3v2</td>
+		<td>ID3v1</td>
+		</tr>
+		</table>
+
+		<h4><span class="mw-headline" id="AAU">AAU</span></h3>
+			<p>Audio Access Unit 의 약자로서 실제 음향 데이터를 담고있다. AAU는 또 다시 여러개의 블럭으로 나뉜다.</p>
+			<table class="wikitable">
+			<tr>
+			<td>Header</td>
+			<td>CRC</td>
+			<td>Side information</td>
+			<td>Main Data</td>
+			<td>Ancillary Data</td>
+			</tr>
+			</table>
+			<p>AAU 의 길이는 다음과 같다.</p>
+			AAU's size = 144 * bitrate / frequency + paddingbit (byte)
+			<p>만약, 비트 레이트가 448,000 bit/s 이고 주파수가 48,000Hz, 패딩 비트가 on(true 또는 1)이라면</p>
+			AAU's size = 144 * 448,000 / 48,000 + 1 = 1,345 byte가 된다.
+			<p>비트레이트와 주파수, 패딩 비트 정보는 헤더로 부터 가져 올 수 있다.</p>
+		<h4><span class="mw-headline" id=".ED.97.A4.EB.8D.94">헤더</span></h4>
+		<p>헤더에는 하나의 AAU 블럭을 디코딩 하기 위해 필요한 기본적인 정보를 담고 있다. 모든 AAU 마다 헤더를 가지고 있으므로 AAU 는 독립적으로 디코딩 될 수 있지만 대개 하나의 MP3에는 동일한 헤더를 가지고 있으므로 디코더는 주로 맨 첫번째 헤더만을 읽는다.</p>
+		<table class="wikitable" style="text-align:center; width:300px; height:100px">
+		<tr>
+		<th>1 byte</th>
+		<td style="color:white; background-color:red;">1</td>
+		<td style="color:white; background-color:red;">1</td>
+		<td style="color:white; background-color:red;">1</td>
+		<td style="color:white; background-color:red;">1</td>
+		<td style="color:white; background-color:red;">1</td>
+		<td style="color:white; background-color:red;">1</td>
+		<td style="color:white; background-color:red;">1</td>
+		<td style="color:white; background-color:red;">1</td>
+		</tr>
+		<tr>
+		<th>2 byte</th>
+		<td style="color:white; background-color:red;">1</td>
+		<td style="color:white; background-color:red;">1</td>
+		<td style="color:white; background-color:red;">1</td>
+		<td style="color:white; background-color:orange;">1</td>
+		<td style="color:white; background-color:orange;">1</td>
+		<td style="color:black; background-color:yellow;">0</td>
+		<td style="color:black; background-color:yellow;">1</td>
+		<td style="color:white; background-color:green;">1</td>
+		</tr>
+		<tr>
+		<th>3 byte</th>
+		<td style="color:white; background-color:blue;">1</td>
+		<td style="color:white; background-color:blue;">1</td>
+		<td style="color:white; background-color:blue;">1</td>
+		<td style="color:white; background-color:blue;">1</td>
+		<td style="color:white; background-color:purple;">1</td>
+		<td style="color:white; background-color:purple;">0</td>
+		<td style="color:white; background-color:magenta;">1</td>
+		<td style="color:black; background-color:hotpink;">1</td>
+		</tr>
+		<tr>
+		<th>4 byte</th>
+		<td style="color:black; background-color:sandybrown;">1</td>
+		<td style="color:black; background-color:sandybrown;">1</td>
+		<td style="color:black; background-color:Khaki;">1</td>
+		<td style="color:black; background-color:Khaki;">1</td>
+		<td style="color:black; background-color:lightgreen;">1</td>
+		<td style="color:black; background-color:lightblue;">0</td>
+		<td style="color:black; background-color:mediumpurple;">1</td>
+		<td style="color:black; background-color:mediumpurple;">1</td>
+		</tr>
+		</table>
+		<table class="wikitable">
+		<tr>
+		<th style="color:white; background-color:red;">MP3 Sync Word</th>
+		<td>모두 1로 설정되어 프레임의 시작을 알립니다.<sup id="cite_ref-codeproject_6-0" class="reference"><a href="#cite_note-codeproject-6">[6]</a></sup></td>
+		</tr>
+		<tr>
+		<th style="color:white; background-color:orange;">Version</th>
+		<td>
+		<table class="wikitable">
+		<tr>
+		<th scope="col">Value</th>
+		<th scope="col">Version</th>
+		</tr>
+		<tr>
+		<td>00</td>
+		<td>MPEG 2.5</td>
+		</tr>
+		<tr>
+		<td>01</td>
+		<td>Reserved</td>
+		</tr>
+		<tr>
+		<td>10</td>
+		<td>MPEG 2</td>
+		</tr>
+		<tr>
+		<td>11</td>
+		<td>MPEG 1</td>
+		</tr>
+		</table>
+		</td>
+		</tr>
+		<tr>
+		<th style="color:black; background-color:yellow;">Layer</th>
+		<td>
+		<table class="wikitable">
+		<tr>
+		<th scope="col">Value</th>
+		<th scope="col">Layer</th>
+		</tr>
+		<tr>
+		<td>00</td>
+		<td>Reserved</td>
+		</tr>
+		<tr>
+		<td>01</td>
+		<td>Layer III</td>
+		</tr>
+		<tr>
+		<td>10</td>
+		<td>Layer II</td>
+		</tr>
+		<tr>
+		<td>11</td>
+		<td>Layer I</td>
+		</tr>
+		</table>
+		</td>
+		</tr>
+		<tr>
+		<th style="color:white; background-color:green;">Error Protection</th>
+		<td>CRC 오류 체크 프레임의 존재 유무를 나타냅니다.
+		<table class="wikitable">
+		<tr>
+		<th scope="col">Value</th>
+		<th scope="col">Chucksum</th>
+		</tr>
+		<tr>
+		<td>0</td>
+		<td>on</td>
+		</tr>
+		<tr>
+		<td>1</td>
+		<td>off</td>
+		</tr>
+		</table>
+		</td>
+		</tr>
+		<tr>
+		<th style="color:white; background-color:blue;">Bit rate</th>
+		<td>(단위는 Kbit)
+		<table class="wikitable">
+		<tr>
+		<th scope="col" rowspan="2">Value</th>
+		<th scope="col" rowspan="2">MPEG-1 Layer I</th>
+		<th scope="col" rowspan="2">MPEG-1 Layer II</th>
+		<th scope="col" rowspan="2">MPEG-1 Layer III</th>
+		<th scope="col" colspan="2">MPEG-2, MPEG-2.5</th>
+		</tr>
+		<tr>
+		<th scope="col">Layer I</th>
+		<th scope="col">Layer II, III</th>
+		</tr>
+		<tr>
+		<td>0000</td>
+		<td>free</td>
+		<td>free</td>
+		<td>free</td>
+		<td>free</td>
+		<td>free</td>
+		</tr>
+		<tr>
+		<td>0001</td>
+		<td>32</td>
+		<td>32</td>
+		<td>32</td>
+		<td>32</td>
+		<td>8</td>
+		</tr>
+		<tr>
+		<td>0010</td>
+		<td>64</td>
+		<td>45</td>
+		<td>40</td>
+		<td>48</td>
+		<td>16</td>
+		</tr>
+		<tr>
+		<td>0011</td>
+		<td>96</td>
+		<td>56</td>
+		<td>45</td>
+		<td>56</td>
+		<td>24</td>
+		</tr>
+		<tr>
+		<td>0100</td>
+		<td>128</td>
+		<td>64</td>
+		<td>56</td>
+		<td>64</td>
+		<td>32</td>
+		</tr>
+		<tr>
+		<td>0101</td>
+		<td>160</td>
+		<td>80</td>
+		<td>64</td>
+		<td>80</td>
+		<td>40</td>
+		</tr>
+		<tr>
+		<td>0110</td>
+		<td>192</td>
+		<td>96</td>
+		<td>80</td>
+		<td>96</td>
+		<td>48</td>
+		</tr>
+		<tr>
+		<td>0111</td>
+		<td>224</td>
+		<td>112</td>
+		<td>96</td>
+		<td>112</td>
+		<td>56</td>
+		</tr>
+		<tr>
+		<td>1000</td>
+		<td>256</td>
+		<td>128</td>
+		<td>112</td>
+		<td>128</td>
+		<td>64</td>
+		</tr>
+		<tr>
+		<td>1001</td>
+		<td>288</td>
+		<td>160</td>
+		<td>128</td>
+		<td>144</td>
+		<td>80</td>
+		</tr>
+		<tr>
+		<td>1010</td>
+		<td>320</td>
+		<td>192</td>
+		<td>160</td>
+		<td>160</td>
+		<td>96</td>
+		</tr>
+		<tr>
+		<td>1011</td>
+		<td>352</td>
+		<td>224</td>
+		<td>192</td>
+		<td>176</td>
+		<td>112</td>
+		</tr>
+		<tr>
+		<td>1100</td>
+		<td>384</td>
+		<td>256</td>
+		<td>224</td>
+		<td>192</td>
+		<td>128</td>
+		</tr>
+		<tr>
+		<td>1101</td>
+		<td>416</td>
+		<td>320</td>
+		<td>256</td>
+		<td>224</td>
+		<td>144</td>
+		</tr>
+		<tr>
+		<td>1110</td>
+		<td>448</td>
+		<td>384</td>
+		<td>320</td>
+		<td>256</td>
+		<td>160</td>
+		</tr>
+		<tr>
+		<td>1111</td>
+		<td>bad</td>
+		<td>bad</td>
+		<td>bad</td>
+		<td>bad</td>
+		<td>bad</td>
+		</tr>
+		</table>
+		<table class="wikitable">
+		<tr>
+		<th scope="col">Bitrate</th>
+		<th scope="col">Allowed modes</th>
+		</tr>
+		<tr>
+		<td>free</td>
+		<td>all</td>
+		</tr>
+		<tr>
+		<td>32</td>
+		<td>single channel</td>
+		</tr>
+		<tr>
+		<td>48</td>
+		<td>single channel</td>
+		</tr>
+		<tr>
+		<td>56</td>
+		<td>single channel</td>
+		</tr>
+		<tr>
+		<td>64</td>
+		<td>all</td>
+		</tr>
+		<tr>
+		<td>80</td>
+		<td>single channel</td>
+		</tr>
+		<tr>
+		<td>96</td>
+		<td>all</td>
+		</tr>
+		<tr>
+		<td>112</td>
+		<td>all</td>
+		</tr>
+		<tr>
+		<td>128</td>
+		<td>all</td>
+		</tr>
+		<tr>
+		<td>160</td>
+		<td>all</td>
+		</tr>
+		<tr>
+		<td>192</td>
+		<td>all</td>
+		</tr>
+		<tr>
+		<td>224</td>
+		<td>stereo, intensity stereo, dual channel</td>
+		</tr>
+		<tr>
+		<td>256</td>
+		<td>stereo, intensity stereo, dual channel</td>
+		</tr>
+		<tr>
+		<td>320</td>
+		<td>stereo, intensity stereo, dual channel</td>
+		</tr>
+		<tr>
+		<td>384</td>
+		<td>stereo, intensity stereo, dual channel</td>
+		</tr>
+		</table>
+		</td>
+		</tr>
+		<tr>
+		<th style="color:white; background-color:purple;">Frequency</th>
+		<td>
+		<table class="wikitable">
+		<tr>
+		<th scope="col">Value</th>
+		<th scope="col">MPEG 1</th>
+		<th scope="col">MPEG 2</th>
+		<th scope="col">MPEG 2.5</th>
+		</tr>
+		<tr>
+		<td>00</td>
+		<td>44100</td>
+		<td>22050</td>
+		<td>11025</td>
+		</tr>
+		<tr>
+		<td>01</td>
+		<td>48000</td>
+		<td>24000</td>
+		<td>12000</td>
+		</tr>
+		<tr>
+		<td>10</td>
+		<td>32000</td>
+		<td>16000</td>
+		<td>8000</td>
+		</tr>
+		<tr>
+		<td>11</td>
+		<td>reserved</td>
+		<td>reserved</td>
+		<td>reserved</td>
+		</tr>
+		</table>
+		</td>
+		</tr>
+		<tr>
+		<th style="color:white; background-color:magenta;">Padding bit</th>
+		<td>
+		<table class="wikitable">
+		<tr>
+		<th scope="col">Value</th>
+		<th scope="col">Padded</th>
+		</tr>
+		<tr>
+		<td>0</td>
+		<td>false</td>
+		</tr>
+		<tr>
+		<td>1</td>
+		<td>true</td>
+		</tr>
+		</table>
+		</td>
+		</tr>
+		<tr>
+		<th style="color:black; background-color:hotpink;">Priv bit</th>
+		<td>별도로 쓰이지 않습니다.</td>
+		</tr>
+		<tr>
+		<th style="color:black; background-color:sandybrown;">Channel Mode</th>
+		<td>채널 모드에 대한 정보를 담고있습니다.
+		<table class="wikitable">
+		<tr>
+		<th scope="col">Value</th>
+		<th scope="col">Mode</th>
+		</tr>
+		<tr>
+		<td>00</td>
+		<td>Stereo</td>
+		</tr>
+		<tr>
+		<td>01</td>
+		<td>Joint Stereo</td>
+		</tr>
+		<tr>
+		<td>10</td>
+		<td>Dual Channel(DualMono)</td>
+		</tr>
+		<tr>
+		<td>11</td>
+		<td>Single Channel(Mono)</td>
+		</tr>
+		</table>
+		</td>
+		</tr>
+		<tr>
+		<th style="color:black; background-color:khaki;">Mode Extension</th>
+		<td>Joint Stereo 의 경우에만 쓰입니다.
+		<table class="wikitable">
+		<tr>
+		<th scope="col" rowspan="2">Value</th>
+		<th scope="col" rowspan="2">Layer I</th>
+		<th scope="col" rowspan="2">Layer II</th>
+		<th scope="col" colspan="2">Layer III</th>
+		</tr>
+		<tr>
+		<th scope="col">Intensity stereo</th>
+		<th scope="col">MS stereo</th>
+		</tr>
+		<tr>
+		<td>00</td>
+		<td colspan="2">subbands 04 to 31</td>
+		<td>off</td>
+		<td>off</td>
+		</tr>
+		<tr>
+		<td>01</td>
+		<td colspan="2">subbands 08 to 31</td>
+		<td>on</td>
+		<td>off</td>
+		</tr>
+		<tr>
+		<td>10</td>
+		<td colspan="2">subbands 12 to 31</td>
+		<td>off</td>
+		<td>on</td>
+		</tr>
+		<tr>
+		<td>11</td>
+		<td colspan="2">subbands 16 to 31</td>
+		<td>on</td>
+		<td>on</td>
+		</tr>
+		</table>
+		</td>
+		</tr>
+		<tr>
+		<th style="color:black; background-color:lightgreen;">Copyright</th>
+		<td>저작권의 보호를 받고 있는지 아닌지에 대한 정보를 담고있습니다.<br />
+		특별히 사용되지 않습니다.
+		<table class="wikitable">
+		<tr>
+		<th scope="col">Value</th>
+		<th scope="col">Copyrighted</th>
+		</tr>
+		<tr>
+		<td>0</td>
+		<td>false</td>
+		</tr>
+		<tr>
+		<td>1</td>
+		<td>true</td>
+		</tr>
+		</table>
+		</td>
+		</tr>
+		<tr>
+		<th style="color:black; background-color:lightblue;">Original</th>
+		<td>원본 자료인지 아닌지에 대한 정보를 담고있습니다.<br />
+		특별히 사용되지 않습니다.
+		<table class="wikitable">
+		<tr>
+		<th scope="col">Value</th>
+		<th scope="col">Copied</th>
+		</tr>
+		<tr>
+		<td>0</td>
+		<td>true</td>
+		</tr>
+		<tr>
+		<td>1</td>
+		<td>false</td>
+		</tr>
+		</table>
+		</td>
+		</tr>
+		<tr>
+		<th style="color:black; background-color:mediumpurple;">Emphasis</th>
+		<td>
+		<table class="wikitable">
+		<tr>
+		<th scope="col">Value</th>
+		<th scope="col">Emphasis</th>
+		</tr>
+		<tr>
+		<td>00</td>
+		<td>none</td>
+		</tr>
+		<tr>
+		<td>01</td>
+		<td>50/15 ms</td>
+		</tr>
+		<tr>
+		<td>10</td>
+		<td>reserved</td>
+		</tr>
+		<tr>
+		<td>11</td>
+		<td>CCIT J.17</td>
+		</tr>
+		</table>
+		</td>
+		</tr>
+		</table>
+		<h4><span class="mw-headline" id="CRC">CRC</span></h4>
+		<p>CRC는 프레임의 오류를 검사하기 위한 데이터를 담고 있다. 대부분의 MP3 파일에는 존재하지 않는다.<sup id="cite_ref-7" class="reference"><a href="#cite_note-7">[7]</a></sup> 헤더에서 "Error Protection" 이 "on" 일때만 존재한다.</p>
+		<p>총 16 bit(2 byte)의 길이를 갖는다.</p>
+		<h4><span class="mw-headline" id=".EC.82.AC.EC.9D.B4.EB.93.9C_.EC.9D.B8.ED.8F.AC.EB.A9.94.EC.9D.B4.EC.85.98">사이드 인포메이션</span></h4>
+		<p>사이드 인포메이션(Side information) 은 인코딩된 메인 데이터를 디코딩 하는데 필요한 정보를 가지고 있다. 사이드 인포메이션의 길이는 다음과 같다.</p>
+		<table class="wikitable">
+		<tr>
+		<th scope="col">Mode</th>
+		<th scope="col">MPEG-1</th>
+		<th scope="col">MPEG-2, MPEG-2.5</th>
+		</tr>
+		<tr>
+		<td>Stereo, Joint Stereo, Dual (Dual Channel)</td>
+		<td>32 byte</td>
+		<td>17 byte</td>
+		</tr>
+		<tr>
+		<td>Mono (Single Channel)</td>
+		<td>17 byte</td>
+		<td>9 byte</td>
+		</tr>
+		</table>
+		<p>사이드 인포메이션은 다음과 같이 구성되어 있다.</p>
+		<table class="wikitable" style="text-align:center;">
+		<caption align="bottom" style="font-size:60%; font-style:italic; font-weight:normal; color:gray;">사이드 인포메이션의 구조<sup id="cite_ref-practice_8-0" class="reference"><a href="#cite_note-practice-8">[8]</a></sup></caption>
+		<tr>
+		<th scope="col" rowspan="2">Name</th>
+		<th scope="col" colspan="2">Bits</th>
+		</tr>
+		<tr>
+		<th scope="col">Single channel</th>
+		<th scope="col">Dual channel</th>
+		</tr>
+		<tr>
+		<td>main_data_begin</td>
+		<td colspan="2">9</td>
+		</tr>
+		<tr>
+		<td>private_bits</td>
+		<td>5</td>
+		<td>3</td>
+		</tr>
+		<tr>
+		<td>scfsi</td>
+		<td>1 * 4</td>
+		<td>1 * 4 * 2 (8)</td>
+		</tr>
+		<tr>
+		<td>Side Information for granule 1</td>
+		<td>59</td>
+		<td>59 * 2 (118)</td>
+		</tr>
+		<tr>
+		<td>Side Information for granule 2</td>
+		<td>59</td>
+		<td>59 * 2 (118)</td>
+		</tr>
+		<tr>
+		<td style="font-weight:bold; background-color:gray;">total</td>
+		<td style="font-weight:bold; background-color:gray;">136 (17 byte)</td>
+		<td style="font-weight:bold; background-color:gray;">256 (32 byte)</td>
+		</tr>
+		</table>
+		<p>만약, MP3가 듀얼 채널 이라면 위에 보이는 것 처럼 하나의 granule 은 두개로 나뉘어 하나는 좌측, 나머지 하나는 우측 채널에 대한 사이드 인포메이션을 담게 된다.</p>
+		<p>하나의 채널에 대한 사이드 인포메이션은 다음과 같이 구성되어 있다.</p>
+		<table class="wikitable" style="text-align:center;">
+		<tr>
+		<th scope="col" colspan="2">Name</th>
+		<th scope="col" colspan="2">Bits</th>
+		</tr>
+		<tr>
+		<td colspan="2">part2_3_length</td>
+		<td>12</td>
+		</tr>
+		<tr>
+		<td colspan="2">big_values</td>
+		<td>9</td>
+		</tr>
+		<tr>
+		<td colspan="2">global_gain</td>
+		<td>8</td>
+		</tr>
+		<tr>
+		<td colspan="2">scalefac_compress</td>
+		<td>4</td>
+		</tr>
+		<tr>
+		<td colspan="2">window_switching_flag</td>
+		<td>1</td>
+		</tr>
+		<tr>
+		<th rowspan="4">if window_switching_flag == 1</th>
+		<td>block_type</td>
+		<td>2</td>
+		</tr>
+		<tr>
+		<td>mixed_block_flag</td>
+		<td>1</td>
+		</tr>
+		<tr>
+		<td>table_select</td>
+		<td>2 * 5</td>
+		</tr>
+		<tr>
+		<td>subblock_gain</td>
+		<td>3 * 3</td>
+		</tr>
+		<tr>
+		<th rowspan="3">if window_switching_flag == 0</th>
+		<td>table_select</td>
+		<td>3 * 5</td>
+		</tr>
+		<tr>
+		<td>region0_count</td>
+		<td>4</td>
+		</tr>
+		<tr>
+		<td>region1_count</td>
+		<td>3</td>
+		</tr>
+		<tr>
+		<td colspan="2">preflag</td>
+		<td>1</td>
+		</tr>
+		<tr>
+		<td colspan="2">scalefac_scale</td>
+		<td>1</td>
+		</tr>
+		<tr>
+		<td colspan="2">count1table_select</td>
+		<td>1</td>
+		</tr>
+		<tr>
+		<td colspan="2" style="font-weight:bold; background-color:gray;">total</td>
+		<td style="font-weight:bold; background-color:gray;">59</td>
+		</tr>
+		</table>
+		<p><i>main_data_begin</i></p>
+		<dl>
+		<dd>메인 데이터의 시작점을 가리키는 포인터이다. 다음 프레임의 헤더의 sync word 로 부터 음의 바이트 오프셋이다.<sup id="cite_ref-practice_8-1" class="reference"><a href="#cite_note-practice-8">[8]</a></sup></dd>
+		</dl>
+		<p><i>private_bits</i></p>
+		<dl>
+		<dd>개인적인 목적으로 사용할 수 있는 비트이다. 이 비트의 또 다른 역할은 사이드 인포메이션의 크기를 바이트 단위로 맞춰주는 역할을 한다. 싱글 채널의 경우 17 바이트로, 듀얼 채널의 경우 32 바이트로 크기를 맞추어 준다.</dd>
+		</dl>
+		<p><i>scfsi</i></p>
+		<dl>
+		<dd>1 비트로 구성되어 있으며 granule에 스케일 팩터 선택 정보를 제공하며 scfsi_band 로 그 값을 전달한다.<sup id="cite_ref-practice_8-3" class="reference"><a href="#cite_note-practice-8">[8]</a></sup></dd>
+		<dd>scfsi_band는 21개의 주파수 영역을 네 개의 그룹으로 나눈것으로 다음과 같다.</dd>
+		</dl>
+		<dl>
+		<dd>
+		<table class="wikitable" style="text-align:center;">
+		<caption align="bottom" style="font-size:60%; font-style:italic; font-weight:normal; color:gray;">주파수 영역<sup id="cite_ref-practice_8-4" class="reference"><a href="#cite_note-practice-8">[8]</a></sup></caption>
+		<tr>
+		<th scope="col">Group</th>
+		<th scope="col">Scalefactor band</th>
+		</tr>
+		<tr>
+		<td>0</td>
+		<td>0 ~ 5</td>
+		</tr>
+		<tr>
+		<td>1</td>
+		<td>6 ~ 10</td>
+		</tr>
+		<tr>
+		<td>2</td>
+		<td>11 ~ 15</td>
+		</tr>
+		<tr>
+		<td>3</td>
+		<td>16 ~ 20</td>
+		</tr>
+		</table>
+		</dd>
+		</dl>
+		<p><i>part2_3_length</i></p>
+		<dl>
+		<dd>이 값은 <a href="/wiki/%EC%8A%A4%EC%BC%80%EC%9D%BC_%ED%8C%A9%ED%84%B0" title="스케일 팩터">스케일 팩터</a>와 <a href="/wiki/%ED%97%88%ED%94%84%EB%A7%8C_%EB%B6%80%ED%98%B8%ED%99%94" title="허프만 부호화">허프만 부호화</a>를 위해 사용되는 메인 데이터의 비트수를 <a href="/wiki/%EC%A0%95%EC%88%98%ED%98%95" title="정수형">부호없는 정수</a>로 가지고 있다. 하나의 granule 은 하나의 채널에 대한 사이드 인포메이션을 제공하는데 예를들면, 싱글채널의 경우 두개의 granule이 있고 하나의 granule 에는 하나의 채널이 존재한다. 그러므로 총 채널의 갯수는 두 개 이며 사이드 인포메이션 또한 두 개 존재한다. 각각의 채널의 크기는 그에 해당하는 사이드 인포메이션의 part2_3_length 에 저장되어 있다.</dd>
+		</dl>
+		<p><i>big_values</i></p>
+		<p><i>global_gain</i></p>
+		<dl>
+		<dd>양자화 스탭 사이즈는 이 값을 통해 알 수 있으며 역양자화 공식은 역양자화 블럭 안에서 찾을 수 있다.</dd>
+		</dl>
+		<p><i>scalefac_compress</i></p>
+		<dl>
+		<dd>스케일 팩터 디코딩에 필요한 정보의 비트 수를 밝혀 내는데 쓰인다. 스케일 팩터 대역폭으로 변환될 정보의 비트 수는 slen1 과 slen2 라는 변수 값으로 나타낸다. block_type 변수에 따라 다양하게 나타날 수 있으며 그에 대한 값은 아래 표에서 찾을 수 있다.</dd>
+		</dl>
+		<dl>
+		<dd>
+		<table class="wikitable" style="text-align:center;">
+		<tr>
+		<th>scalefac_compress</th>
+		<th>slen1</th>
+		<th>slen2</th>
+		</tr>
+		<tr>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+		</tr>
+		<tr>
+		<td>1</td>
+		<td>0</td>
+		<td>1</td>
+		</tr>
+		<tr>
+		<td>2</td>
+		<td>0</td>
+		<td>2</td>
+		</tr>
+		<tr>
+		<td>3</td>
+		<td>0</td>
+		<td>3</td>
+		</tr>
+		<tr>
+		<td>4</td>
+		<td>3</td>
+		<td>0</td>
+		</tr>
+		<tr>
+		<td>5</td>
+		<td>1</td>
+		<td>1</td>
+		</tr>
+		<tr>
+		<td>6</td>
+		<td>1</td>
+		<td>2</td>
+		</tr>
+		<tr>
+		<td>7</td>
+		<td>1</td>
+		<td>3</td>
+		</tr>
+		<tr>
+		<td>8</td>
+		<td>2</td>
+		<td>1</td>
+		</tr>
+		<tr>
+		<td>9</td>
+		<td>2</td>
+		<td>2</td>
+		</tr>
+		<tr>
+		<td>10</td>
+		<td>2</td>
+		<td>3</td>
+		</tr>
+		<tr>
+		<td>11</td>
+		<td>3</td>
+		<td>1</td>
+		</tr>
+		<tr>
+		<td>12</td>
+		<td>3</td>
+		<td>2</td>
+		</tr>
+		<tr>
+		<td>13</td>
+		<td>3</td>
+		<td>3</td>
+		</tr>
+		<tr>
+		<td>14</td>
+		<td>4</td>
+		<td>2</td>
+		</tr>
+		<tr>
+		<td>15</td>
+		<td>4</td>
+		<td>3</td>
+		</tr>
+		</table>
+		</dd>
+		</dl>
+		<dl>
+		<dd>만약 block_type 이 0, 1, 3 이라면 slen1 은 0~10, slen2 는 11~20 의 대역폭으로 변환된다.</dd>
+		<dd>만약 block_type 이 2 이고 mixed_block_flag 가 0 이라면 slen1 은 0~5, slen2 는 6~11 의 대역폭으로 변환된다.</dd>
+		<dd>만약 block_type 이 2 이고 mixed_block_flag 가 1 이라면 slen1 은 0~7(긴 범위) 또는 3~5(짧은 범위), slen2 는 6~11 의 대역폭으로 변환된다.</dd>
+		</dl>
+		<p><i>window_switching_flag</i></p>
+		<dl>
+		<dd>이 값이 셋 되어 있으면 block_type, mixed_block_flag, subblock_gain 값 또한 셋 된다. 셋 되어 있지 않으면 block_type 값은 0 이 된다.</dd>
+		</dl>
+		<p><i>block_type</i></p>
+		<dl>
+		<dd>각 granule 에 쓰일 윈도우의 종류를 나타낸다. 윈도우의 종류는 아래 표에 있다.</dd>
+		</dl>
+		<table class="wikitable">
+		<tr>
+		<th>block_type</th>
+		<th>window type</th>
+		</tr>
+		<tr>
+		<td>0</td>
+		<td>reserved</td>
+		</tr>
+		<tr>
+		<td>1</td>
+		<td>start block</td>
+		</tr>
+		<tr>
+		<td>2</td>
+		<td>3 short windows</td>
+		</tr>
+		<tr>
+		<td>3</td>
+		<td>end</td>
+		</tr>
+		</table>
+		<p><i>mixed_block_flag</i></p>
+		<dl>
+		<dd>각기 다른 주파수들이 각기 다른 윈도우 타입과 함께 변환될 지에 대한 정보를 나타낸다. 이 값이 셋 되어 있지 않으면 모든 주파수들은 block_type 에 명시된 종류에 따라 변환 되지만, 값이 셋 되어 있다면 가장 낮은 두 개의 부분대역폭은 normal window 와 함께 변환되며 나머지 부분 대역폭들은 block_type 에 명시된 대로 변환된다.</dd>
+		</dl>
+		<p><i>table_select</i></p>
+		<p><i>subblock_gain</i></p>
+		<p><i>region0_count</i>, <i>region1_count</i></p>
+		<p><i>preflag</i></p>
+		<p><i>scalefac_scale</i></p>
+		<p><i>count1table_select</i></p>
+		<h4><span class="mw-headline" id=".EB.A9.94.EC.9D.B8_.EB.8D.B0.EC.9D.B4.ED.84.B0">메인 데이터</span></h4>
+		<p>인코딩된 실제 데이터를 담고있다. 사이드 인포메이션을 바탕으로 디코딩 되어야만 실제 사용 가능한 데이터가 될 수 있다. <a href="/wiki/%ED%97%88%ED%94%84%EB%A7%8C_%EB%B6%80%ED%98%B8%ED%99%94" title="허프만 부호화">허프만 디코딩</a>, <a href="/wiki/%EC%8A%A4%EC%BC%80%EC%9D%BC_%ED%8C%A9%ED%84%B0" title="스케일 팩터">스케일 팩터 디코딩</a> 등으로 변환 가능하다.</p>
+		<table class="wikitable" style="text-align:center;">
+		<caption align="bottom" style="font-size:60%; font-style:italic; font-weight:normal; color:gray;">메인 데이터의 구조<sup id="cite_ref-columbia_9-0" class="reference"><a href="#cite_note-columbia-9">[9]</a></sup></caption>
+		<tr>
+		<td colspan="8">main_data</td>
+		</tr>
+		<tr>
+		<td colspan="4">granule 1</td>
+		<td colspan="4">granule 2</td>
+		</tr>
+		<tr>
+		<td colspan="2">Left Channel</td>
+		<td colspan="2">Right Channel</td>
+		<td colspan="2">Left Channel</td>
+		<td colspan="2">Right Channel</td>
+		</tr>
+		<tr>
+		<td>Scale Factor</td>
+		<td>Huffman Code</td>
+		<td>Scale Factor</td>
+		<td>Huffman Code</td>
+		<td>Scale Factor</td>
+		<td>Huffman Code</td>
+		<td>Scale Factor</td>
+		<td>Huffman Code</td>
+		</tr>
+		</table>
+		<h3><span class="mw-headline" id="APE_Tag">APE Tag</span></h3>
+		<div class="rellink relarticle mainarticle">
+		<p>APE 태그는 가수, 앨범명, 곡의 제목등의 메타데이터를 추가하기 위한 태그 포맷이다.</p>
+		<h3><span class="mw-headline" id="Lyrics3v2">Lyrics3v2</span></h3>
+		<p>Lyrics3v2 태그는 가사와 노래 정보등을 담기 위한 태그 포맷이다.</p>
+		<h3><span class="mw-headline" id="ID3v1">ID3v1</span></h3>
+		<div class="rellink relarticle mainarticle"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Crystal_Clear_app_xmag.svg/16px-Crystal_Clear_app_xmag.svg.png" width="16" height="16" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Crystal_Clear_app_xmag.svg/24px-Crystal_Clear_app_xmag.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Crystal_Clear_app_xmag.svg/32px-Crystal_Clear_app_xmag.svg.png 2x" data-file-width="128" data-file-height="128" /> 이 부분의 본문은 <a href="/wiki/ID3" title="ID3">ID3</a>입니다.</div>
+		<p>MP3 파일의 맨 끝에 존재하며 128 byte 길이의 태그이다. "TAG"라는 문자열로 시작하여 쉽게 찾을 수 있다.</p>
+		<table class="wikitable">
+		<tr>
+		<th>8 byte</th>
+		<td style="color:white; background-color:red; width:60px; text-align:center;">T</td>
+		<td style="color:white; background-color:red; width:60px; text-align:center;">A</td>
+		<td style="color:white; background-color:red; width:60px; text-align:center;">G</td>
+		<td style="color:white; background-color:orange; width:60px;">Title</td>
+		<td style="color:white; background-color:orange; width:60px;">30 byte</td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		</tr>
+		<tr>
+		<th>16 byte</th>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		</tr>
+		<tr>
+		<th>24 byte</th>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		</tr>
+		<tr>
+		<th>32 byte</th>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		</tr>
+		<tr>
+		<th>40 byte</th>
+		<td style="color:white; background-color:orange; width:60px;"></td>
+		<td style="color:black; background-color:yellow; width:60px;">Artist</td>
+		<td style="color:black; background-color:yellow; width:60px;">30 byte</td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		</tr>
+		<tr>
+		<th>48 byte</th>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		</tr>
+		<tr>
+		<th>56 byte</th>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		</tr>
+		<tr>
+		<th>64 byte</th>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:yellow; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;">Album</td>
+		</tr>
+		<tr>
+		<th>72 byte</th>
+		<td style="color:white; background-color:green; width:60px;">30 byte</td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		</tr>
+		<tr>
+		<th>80 byte</th>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		</tr>
+		<tr>
+		<th>88 byte</th>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		</tr>
+		<tr>
+		<th>96 byte</th>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:green; width:60px;"></td>
+		<td style="color:white; background-color:blue; width:60px;">Year</td>
+		<td style="color:white; background-color:blue; width:60px;">4 byte</td>
+		<td style="color:white; background-color:blue; width:60px;"></td>
+		</tr>
+		<tr>
+		<th>104 byte</th>
+		<td style="color:white; background-color:blue; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;">Comment</td>
+		<td style="color:white; background-color:purple; width:60px;">30 byte</td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		</tr>
+		<tr>
+		<th>112 byte</th>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		</tr>
+		<tr>
+		<th>120 byte</th>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		</tr>
+		<tr>
+		<th>128 byte</th>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:purple; width:60px;"></td>
+		<td style="color:white; background-color:Magenta; width:60px;">Genre</td>
+		</tr>
+		</table>
