@@ -64,3 +64,11 @@
 .wiki-article .wiki-file-image{margin-bottom:20px;}
 .wiki-lazy-image{display:none;}
 .wiki-lazy-loading{background-color:#888;background-image:url(../img/loading.gif?1445146813);background-repeat:no-repeat;background-position:center;}
+table.wikitable{margin:1em 0;background-color:#f9f9f9;border:1px solid #aaa;border-collapse:collapse;color:black}
+table.wikitable > tr > th,
+table.wikitable > tr > td,
+table.wikitable > * > tr > th,
+table.wikitable > * > tr > td{border:1px solid #aaa;padding:0.2em 0.4em}
+table.wikitable > tr > th,
+table.wikitable > * > tr > th{background-color:#f2f2f2;text-align:center}
+table.wikitable > caption{font-weight:bold}
