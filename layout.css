@@ -1,4 +1,901 @@
-@charset "UTF-8";html{-ms-overflow-style:scrollbar;}html,body,th,td,input,select,textarea,button,div,p,h1,h2,h3,h4,h5,h6,li{font-family:"Open Sans",arial,'Apple SD Gothic Neo','Noto Sans Korean','본고딕','KoPubDotum Medium','나눔바른고딕','나눔고딕','NanumGothic','맑은고딕','Malgun Gothic',sans-serif!important;}body,th,td,input,select,textarea,button,div,p,li{font-size:0.9rem!important;}body.senkawa{background-color:#EFEFEF;}.senkawa h1,.senkawa h2,.senkawa h3,.senkawa h4,.senkawa h5,.senkawa h6{font-weight:bold;}:focus{outline:none;}::-moz-focus-inner{border:0;}.senkawa .nav.nav-pills.nav-stacked .title{font-size:1.3rem!important;font-weight:600;margin:1rem 0 0.5rem 0.3rem;}.senkawa .nav.nav-pills.nav-stacked .title:first-of-type{margin-top:0;}.senkawa .breadcrumb.link-nav{padding:0.4rem 0.8rem;display:inline-block;border-radius:0;}.senkawa .breadcrumb.link-nav>li+li::before{padding-right:0.3rem;padding-left:0.3rem;content:"| ";}.senkawa .nav-pills .nav-link.active{background-color:#368A82;}.senkawa input.form-control,.senkawa textarea.form-control{border-radius:0;padding:0.25rem 0.5rem;}.senkawa select.form-control{border-radius:0;}.senkawa .btn{padding:0.3rem 0.7rem;}.senkawa small{font-size:70%!important;}.senkawa .navbar-wrapper{background-color:#008275;}.senkawa .navbar{padding:0 1rem;font-size:1rem;background-color:#008275;}.senkawa .navbar .navbar-brand{margin-right:0.7rem;}@media screen and (max-width: 420px) {.senkawa .navbar .navbar-brand{margin-right:0.3rem;}}.senkawa .navbar .wiki-logo{height:2.6rem;width:6.6rem;background:transparent url("../img/namuwiki_logo_kor_white_small.png") no-repeat scroll center center/ auto 35px;
+@charset UTF-8;
 
-	padding: 0;
-}.senkawa .navbar-nav .nav-item{padding:0;}.senkawa .navbar-nav .nav-item+.nav-item{margin-left:0.2rem;}.senkawa .navbar-nav .icon{margin-right:0.3rem;}.senkawa .navbar-nav .nav-link{color:white;font-size:1rem;padding:0.6rem 0.7rem 0.5rem 0.7rem;}.senkawa .navbar-nav .nav-link:hover{background-color:#38A59A;color:white;}@media screen and (max-width: 42em) {.senkawa .navbar-nav .icon{margin-right:0;}.senkawa .navbar-nav .nav-item+.nav-item{margin-left:0;}.senkawa .navbar-nav .nav-link{padding:0.6rem 0.9rem 0.5rem 0.9rem;}.senkawa .navbar-nav .nav-link>.icon-title{display:none;}}@media screen and (max-width: 420px) {.senkawa .navbar{padding:0 0.3rem;}.senkawa .navbar-nav .nav-link{padding:0.6rem 0.6rem 0.5rem 0.6rem;}.senkawa .navbar .search-box-parent{margin:0 0.7rem;}}.senkawa .navbar .search-box{float:right;}.senkawa .navbar .search-box input{width:220px;height:2.6rem;border-radius:0;}.senkawa .navbar .search-box .btn{height:2.6rem;color:black;font-size:1.2rem!important;padding:0.375rem 0.9rem;border-radius:0;border-right:1px solid #CCC;border-top:1px solid #CCC;border-bottom:1px solid #CCC;}.senkawa .navbar .search-box .btn:first-of-type{margin-left:0;border-left:0;}@media screen and (max-width: 980px) {.senkawa .navbar .search-box{float:left;width:calc(100% + 2rem);margin-left:-1rem;display:table!important;height:2rem!important;}.senkawa .navbar .search-box input{width:100%;height:2.2rem;border-left:0;}.senkawa .navbar .search-box .input-group-btn{width:1%;}.senkawa .navbar .search-box .btn{height:2.2rem;padding:0.17rem 0.7rem;}.senkawa .navbar .search-box .btn:last-of-type{border-right:0;}}.senkawa .navbar .user-menu-parent,.senkawa .navbar .user-menu-parent>a{width:42px;height:42px;}.senkawa .navbar .user-menu-parent{margin-left:0.5rem;}.senkawa .navbar .user-menu{display:inline-block;padding:0;}.senkawa .navbar .user-menu .icon{display:inline-block;font-size:1.4rem;text-align:center;width:2.4rem;padding-top:0.3rem;padding-left:0.3rem;margin-right:0px;margin-bottom:0.1rem;}.senkawa .navbar .user-menu:after{margin-left:0;border-top:0;border-right:0;border-left:0;}.senkawa .navbar .user-menu .user-img{width:42px;height:42px;}.senkawa .navbar .dropdown-menu{margin-top:1rem;font-size:0.9rem;border-radius:0;left:-0.2rem;}.senkawa .navbar .dropdown-menu.right{left:auto;right:-6px;}.senkawa .navbar .dropdown-menu.user-dropdown.right{right:0;}.senkawa .navbar .dropdown-menu:after,.senkawa .navbar .dropdown-menu:before{bottom:100%;border:solid transparent;content:" ";height:0;width:0;position:absolute;pointer-events:none;}.senkawa .navbar .dropdown-menu:after{border-bottom-color:white;border-width:10px;left:1.25rem;right:auto;}.senkawa .navbar .dropdown-menu:before{border-bottom-color:#CCC;border-width:11px;left:1.2rem;right:auto;}.senkawa .navbar .dropdown-menu.right:after{left:auto;right:10px;}.senkawa .navbar .dropdown-menu.right:before{left:auto;right:9px;}.senkawa .navbar .user-dropdown .user-info:hover{background-color:white;}.senkawa .navbar .user-dropdown .user-info .user-info{margin-right:-0.5rem;line-height:20px;text-align:right;}.senkawa .navbar .user-dropdown .user-info .user-info div{font-size:0.8rem;}.senkawa .navbar .user-dropdown .user-info .user-info div:first-of-type{font-size:1rem!important;font-weight:bold;}.senkawa .sidebar{float:right;width:17rem;margin:1rem 1rem 1rem 0;}@media screen and (max-width: 980px) {.senkawa .sidebar{display:none;}}.senkawa .sidebar.has-site-notice{}.senkawa .sidebar .card{background-color:white;border-color:#ccc;border-radius:0;}.senkawa .recent-card{padding:0;}.senkawa .recent-card h5{margin:1.25rem;}.senkawa .recent-card .link-table a{display:block;padding:0.3rem 0.5rem;border-top:1px solid #ccc;word-wrap:break-word;overflow:auto;}.senkawa .recent-card .link-table a:last-of-type{border-bottom:1px solid #ccc;}.senkawa .recent-card .link-table a span{float:right;margin-left:0.2rem;color:black;}.senkawa .recent-card a.more-link{display:block;text-align:right;padding:0.5rem 0.7rem;}.senkawa .recent-card a:hover{background-color:#FCFCFC;text-decoration:none;}.senkawa .wiki-article{margin:0 19rem 0 0;padding:1.5rem 1.5rem 4rem 1.5rem;min-height:35rem;background-color:white;border-right:1px solid #ccc;border-bottom:1px solid #ccc;word-break:break-all;}@media screen and (max-width: 980px) {.senkawa .wiki-article{padding:0.7rem 0.7rem 4rem 0.7rem;margin:0;border:0!important;}}.senkawa .wiki-article .site-notice{background-color:#F0EF75;padding:0.3rem 1rem;margin:-1.5rem -1.5rem 1.5rem -1.5rem;border-bottom:1px solid #ccc;}@media screen and (max-width: 980px) {.senkawa .wiki-article .site-notice{margin:-0.7rem -0.7rem 0.7rem -0.7rem;padding:0.2rem 0.7rem;}}.senkawa .wiki-article .alert{margin-bottom:0.7rem;}.senkawa .wiki-article .alert:last-of-type{margin-bottom:1rem;}.senkawa .wiki-article>.title{margin:0 0 2rem 0;font-weight:bold;}.senkawa .wiki-article>h1.title{font-size:2.2rem;}.senkawa .wiki-article>h1.title>a{color:black;}.senkawa .wiki-article>.title+.wiki-edit-date{font-size:0.75rem;margin-top:-1.6rem;margin-bottom:0;float:right;}@media screen and (max-width: 980px) {.senkawa .wiki-article>.title+.wiki-edit-date{margin-top:-1.4rem;}}.senkawa .wiki-article .wiki-article-menu{float:right;}.senkawa .wiki-article .wiki-article-menu a{font-size:0.9rem;padding:0.3rem 0.8rem;}.senkawa .wiki-article .wiki-article-menu a.discuss-bold{background-color:#BBEABB;}@media screen and (max-width: 980px) {.senkawa .wiki-article .wiki-article-menu~h1.title{margin-top:1rem;}.senkawa .wiki-article .wiki-article-menu{height:32px;margin:-0.7rem -0.7rem 0 -0.7rem;border-bottom:0.0625rem solid #ccc;text-align:right;float:none;}.senkawa .wiki-article .wiki-article-menu a{height:32px;}.senkawa .wiki-article .wiki-article-menu .btn{border-radius:0;border-top:0;}.senkawa .wiki-article .alert+.wiki-article-menu{border-top:1px solid #ccc;}.senkawa .btn-group>.btn:last-child:not(:first-child){border-right:0;}}.senkawa .wiki-article ul:not([class]){padding-left:2rem;}.senkawa .wiki-content{min-height:22rem;}.senkawa .wiki-article tr.no-line+tr td{border-top:0;padding-top:0;padding-left:1.5rem;}.senkawa .wiki-article>footer{border-top:1px solid gray;margin:1.5rem 0 0 0;padding:0.7rem 0 0.7rem 0;text-align:right;background-color:white;}.senkawa .wiki-article>footer p:first-of-type{margin:0;}.senkawa .wiki-article #previewFrame{display:block;width:100%;height:500px;margin-top:40px;border:1px solid gray;}.senkawa .wiki-article #editForm #textInput{width:100%;height:30rem;}.senkawa #uploadForm .row{height:5.1rem;}.senkawa #uploadForm #fakeFileInput[readonly]{background-color:white;cursor:default;}.senkawa #uploadForm #textInput{width:100%;height:30rem;margin:0.3rem 0 1rem 0;}.senkawa #uploadForm #uploadBtn{width:7rem;}.senkawa .login-form,.senkawa .signup-form{width:100%;}.senkawa .login-form input[type="text"],.senkawa .login-form input[type="password"],.senkawa .signup-form input[type="text"],.senkawa .signup-form input[type="email"],.senkawa .signup-form input[type="password"]{width:100%;}@media screen and (min-width: 34rem) {.senkawa .login-form{width:28rem;margin:0 auto;}.senkawa .signup-form{width:34rem;margin:0 auto;}.senkawa .login-form label,.senkawa .signup-form label{display:block;}.senkawa .login-form input[type="text"],.senkawa .login-form input[type="password"],.senkawa .signup-form input[type="text"],.senkawa .signup-form input[type="email"],.senkawa .signup-form input[type="password"]{display:inline-block;margin-left:0.7rem;width:calc(100% - 0.7rem);}}.senkawa form .error-desc{margin-left:0.7em;color:red;}.senkawa form .btns{text-align:right;margin-top:2rem;}.senkawa .login-form button[type="submit"],.senkawa .signup-form button[type="submit"]{width:5rem;}.senkawa .settings-nav{height:2.6rem;margin-bottom:1.2rem;padding:0.3rem;border:1px solid #ccc;}.senkawa .settings-nav .nav-pills .nav-link{border-radius:0;padding:0.3rem 0.5rem;}.senkawa .settings-nav .nav-pills .nav-item+.nav-item{margin-left:0.5rem;}.senkawa .settings-section h3{margin-top:1.5rem;margin-bottom:1rem;}.senkawa .settings-section h3:first-of-type{margin-top:0;}.senkawa .settings-section .form-group .checkbox{padding-left:1rem;}.senkawa .settings-section .form-group select{margin-left:1rem;max-width:16rem;}.senkawa .settings-section .form-group button{margin-left:1rem;}.senkawa .settings-section small{font-size:80%!important;}.senkawa .mypage-nav{float:left;width:13rem;margin-bottom:1.2rem;padding:0.5rem;border:1px solid #ccc;}.senkawa .mypage-nav .nav-pills .nav-link{border-radius:0;}.senkawa .mypage-section{margin-left:14rem;}@media screen and (max-width: 42em) {.senkawa .mypage-nav{float:none;width:auto;}.senkawa .mypage-section{margin-left:0;}}.senkawa .license-table{table-layout:fixed;}.senkawa .license-table tr td:first-of-type{text-align:right;}.senkawa.fixed-size .wiki-article{border-left:1px solid #ccc;}@media screen and (max-width: 980px) {.senkawa.fixed-size .wiki-article{border-left:none!important;}}.senkawa.fixed-size.hide-sidebar .wiki-article{margin-right:0;}.senkawa.fixed-size .content-wrapper{margin:0 auto;}.senkawa.fixed-size.fixed-800 .content-wrapper,.senkawa.fixed-size.fixed-800 .navbar{max-width:800px;}.senkawa.fixed-size.fixed-1000 .content-wrapper,.senkawa.fixed-size.fixed-1000 .navbar{max-width:1000px;}.senkawa.fixed-size.fixed-1100 .content-wrapper,.senkawa.fixed-size.fixed-1100 .navbar{max-width:1100px;}.senkawa.fixed-size.fixed-1200 .content-wrapper,.senkawa.fixed-size.fixed-1200 .navbar{max-width:1200px;}.senkawa.fixed-size.fixed-1300 .content-wrapper,.senkawa.fixed-size.fixed-1300 .navbar{max-width:1300px;}.senkawa.fixed-size.fixed-1500 .content-wrapper,.senkawa.fixed-size.fixed-1500 .navbar{max-width:1500px;}.senkawa.fixed-size.fixed-1600 .content-wrapper,.senkawa.fixed-size.fixed-1600 .navbar{max-width:1600px;}.senkawa.fixed-size .navbar{margin:0 auto;}.senkawa.fixed-size:not(.left-sidebar) .wiki-article .site-notice{}.senkawa.fixed-navbar .wiki-article .wiki-fn-content .target,.senkawa.fixed-navbar .wiki-article .footnote-list .target{position:absolute;margin-top:-40px;}.senkawa.fixed-navbar .wiki-article{margin-top:40px;}.senkawa.fixed-navbar .navbar-wrapper{width:100%;position:fixed;}.senkawa.fixed-navbar .navbar{z-index:90004;}.senkawa.hide-sidebar .sidebar{display:none;}.senkawa.hide-sidebar:not(.fixed-size) .wiki-article{margin-right:0;margin-left:0;}.senkawa.hide-sidebar .wiki-article .site-notice{margin:-1.5rem -1.5rem 1.5rem -1.5rem;}@media screen and (max-width: 980px) {.senkawa.hide-sidebar .wiki-article .site-notice{margin:-0.7rem -0.7rem 0.7rem -0.7rem;}}.senkawa.left-sidebar .wiki-article{margin-left:19rem;margin-right:0;border-left:1px solid #ccc;}@media screen and (max-width: 980px) {.senkawa.left-sidebar .wiki-article{margin-left:0;}}.senkawa.left-sidebar .sidebar{float:left;margin:1rem 0 1rem 1rem;}.senkawa.left-sidebar .wiki-article .site-notice{margin:-1.5rem -1.5rem 1.5rem -1.5rem;}.senkawa.left-sidebar .sidebar.has-site-notice{}.senkawa .wiki-content.character{background-position:right top!important;background-repeat:no-repeat!important;}.senkawa .wiki-content.munya-notfound{background-image:url(/img/character/munya/notfound.png?1431680016);background-size:auto 340px;}@media screen and (max-width: 360px), screen and (max-height: 360px) {.senkawa .wiki-content.munya-notfound{background-size:auto 200px;}}.senkawa .wiki-content.sephi-notfound0{background-image:url(/img/character/sephirot/notfound0.png?1434426389);background-size:auto 340px;}@media screen and (max-width: 360px), screen and (max-height: 360px) {.senkawa .wiki-content.sephi-notfound0{background-size:auto 200px;}}.senkawa .wiki-content.sephi-notfound1{background-image:url(/img/character/sephirot/notfound1.png?1434426389);background-size:auto 340px;}@media screen and (max-width: 360px), screen and (max-height: 360px) {.senkawa .wiki-content.sephi-notfound1{background-size:auto 200px;}}.senkawa .nav-control{position:fixed;margin:0;padding:0;right:0;bottom:0;list-style-type:none;border-bottom:none;border-right:none;border-top:1px solid #ccc;border-left:1px solid #ccc;border-top-left-radius:5px;background-color:#008275;opacity:0.8;z-index:90005;}.senkawa .nav-control li{float:left;}.senkawa .nav-control li a{color:white;font-size:1.8rem;line-height:42px;text-align:center;width:40px;height:40px;display:inline-block;border-left:2px dashed #ccc;}.senkawa .nav-control li:first-of-type a{border-left:none;}@media screen and (max-width: 980px) {.senkawa .nav-control li a{width:45px;height:45px;font-size:2.2rem;line-height:48px;}}body.senkawa.modal-open.modal-open-fix{overflow:visible!important;padding-right:0!important;}.senkawa .modal#shortcutHelpModal .modal-body dl{margin:0rem;}.senkawa .modal#shortcutHelpModal .modal-body dt{text-align:right;}.senkawa .modal#shortcutHelpModal .modal-body b{color:#BD4147;background-color:#F7F7F9;}.senkawa .modal#searchModal{left:auto;right:1.5rem!important;}.senkawa .modal#searchModal .modal-content{border:0;border-radius:0;}.senkawa .modal#searchModal .close{top:4px;position:relative;}.senkawa .modal#searchModal .modal-header{padding:0.3rem 0.7rem;border:1px solid rgba(0,0,0,0.2);border-bottom:0;}.senkawa .modal#searchModal .modal-body{padding:0;}@media print {.senkawa .navbar,.senkawa .tab_bar,.senkawa .wiki-article .wiki-article-menu,.senkawa .nav-control,.senkawa .sidebar{display:none!important;}.senkawa .wiki-article{margin:0;border:0;}}.senkawa .wiki-article table caption{color:black;padding-top:0rem;padding-bottom:0.2rem;text-align:center;caption-side:top;}.senkawa .wiki-article .wiki-content code{font-style:normal;font-weight:normal;padding:0;margin:0;font-size:auto;color:black;background-color:transparent;border-radius:0;}.senkawa .wiki-article .wiki-list{padding-left:0.5rem;}.senkawa .table th,.senkawa .table td{padding:0.5rem 0.7rem;}.senkawa .table tr:last-of-type td{border-bottom:1px solid #ECEEEF;}.senkawa .nav{list-style:outside none none!important;}.senkawa .alert{padding:0.5rem 0.8rem;}.senkawa .alert .close{font-size:18px!important;top:0;right:0;}.senkawa .input-group .input-group-btn .btn{padding:0.25rem 0.5rem;border-radius:0;}.senkawa .alert .close{color:black;font-size:1.5rem!important;margin-left:0.5rem;}.senkawa .hidden{display:none!important;}.senkawa .popover .popover-title .close{display:inline-block;float:right;font-size:1.3rem;margin:-4px -4px 0 0;}.senkawa .modal .close{font-size:25px!important;}.senkawa #nprogress .bar{background:#BBEABB;position:fixed;}.senkawa #nprogress .peg{box-shadow:0 0 10px white,0 0 5px white;}.senkawa .line-break{display:block;border:none;border-bottom:1px solid gray;}#div-gpt-ad-1449622106273-0{text-align:center;padding-top:1rem;padding-bottom:1rem;}
+html {
+-ms-overflow-style:scrollbar;
+}
+
+html,body,th,td,input,select,textarea,button,div,p,h1,h2,h3,h4,h5,h6,li {
+font-family:"Open Sans",arial,'Apple SD Gothic Neo','Noto Sans Korean',본고딕,'KoPubDotum Medium',나눔바른고딕,나눔고딕,NanumGothic,맑은고딕,'Malgun Gothic',sans-serif!important;
+}
+
+body,th,td,input,select,textarea,button,div,p,li {
+font-size:.9rem!important;
+}
+ㅅ
+body.senkawa {
+background-color:#EFEFEF;
+}
+
+.senkawa h1,.senkawa h2,.senkawa h3,.senkawa h4,.senkawa h5,.senkawa h6 {
+font-weight:700;
+}
+
+:focus {
+outline:none;
+}
+
+::-moz-focus-inner {
+border:0;
+}
+
+.senkawa .nav.nav-pills.nav-stacked .title {
+font-size:1.3rem!important;
+font-weight:600;
+margin:1rem 0 .5rem .3rem;
+}
+
+.senkawa .breadcrumb.link-nav {
+display:inline-block;
+border-radius:0;
+padding:.4rem .8rem;
+}
+
+.senkawa .breadcrumb.link-nav>li+li::before {
+padding-right:.3rem;
+padding-left:.3rem;
+content:"| ";
+}
+
+.senkawa .nav-pills .nav-link.active {
+background-color:#368A82;
+}
+
+.senkawa input.form-control,.senkawa textarea.form-control {
+border-radius:0;
+padding:.25rem .5rem;
+}
+
+.senkawa .btn {
+padding:.3rem .7rem;
+}
+
+.senkawa small {
+font-size:70%!important;
+}
+
+.senkawa .navbar-wrapper {
+background-color:#008275;
+}
+
+.senkawa .navbar {
+font-size:1rem;
+background-color:#008275;
+padding:0 1rem;
+}
+
+.senkawa .navbar .navbar-brand {
+margin-right:.7rem;
+}
+
+.senkawa .navbar .wiki-logo {
+height:2.6rem;
+width:6.6rem;
+background:transparent url(../img/namuwiki_logo_kor_white_small.png) no-repeat scroll center center/ auto 35px;
+padding:0;
+}
+
+.senkawa .navbar-nav .nav-item+.nav-item {
+margin-left:.2rem;
+}
+
+.senkawa .navbar-nav .icon {
+margin-right:.3rem;
+}
+
+.senkawa .navbar-nav .nav-link {
+color:#FFF;
+font-size:1rem;
+padding:.6rem .7rem .5rem;
+}
+
+.senkawa .navbar-nav .nav-link:hover {
+background-color:#38A59A;
+color:#FFF;
+}
+
+.senkawa .navbar .search-box input {
+width:220px;
+height:2.6rem;
+border-radius:0;
+}
+
+.senkawa .navbar .search-box .btn {
+height:2.6rem;
+color:#000;
+font-size:1.2rem!important;
+border-radius:0;
+border-right:1px solid #CCC;
+border-top:1px solid #CCC;
+border-bottom:1px solid #CCC;
+padding:.375rem .9rem;
+}
+
+.senkawa .navbar .search-box .btn:first-of-type {
+margin-left:0;
+border-left:0;
+}
+
+.senkawa .navbar .user-menu {
+display:inline-block;
+padding:0;
+}
+
+.senkawa .navbar .user-menu .icon {
+display:inline-block;
+font-size:1.4rem;
+text-align:center;
+width:2.4rem;
+padding-top:.3rem;
+padding-left:.3rem;
+margin-right:0;
+margin-bottom:.1rem;
+}
+
+.senkawa .navbar .user-menu:after {
+margin-left:0;
+border-top:0;
+border-right:0;
+border-left:0;
+}
+
+.senkawa .navbar .dropdown-menu {
+margin-top:1rem;
+font-size:.9rem;
+border-radius:0;
+left:-.2rem;
+}
+
+.senkawa .navbar .dropdown-menu.right {
+left:auto;
+right:-6px;
+}
+
+.senkawa .navbar .dropdown-menu.user-dropdown.right {
+right:0;
+}
+
+.senkawa .navbar .dropdown-menu:after,.senkawa .navbar .dropdown-menu:before {
+bottom:100%;
+border:solid transparent;
+content:" ";
+height:0;
+width:0;
+position:absolute;
+pointer-events:none;
+}
+
+.senkawa .navbar .dropdown-menu:after {
+border-bottom-color:#FFF;
+left:1.25rem;
+right:auto;
+border-width:10px;
+}
+
+.senkawa .navbar .dropdown-menu:before {
+border-bottom-color:#CCC;
+left:1.2rem;
+right:auto;
+border-width:11px;
+}
+
+.senkawa .navbar .dropdown-menu.right:after {
+left:auto;
+right:10px;
+}
+
+.senkawa .navbar .dropdown-menu.right:before {
+left:auto;
+right:9px;
+}
+
+.senkawa .navbar .user-dropdown .user-info:hover {
+background-color:#FFF;
+}
+
+.senkawa .navbar .user-dropdown .user-info .user-info {
+margin-right:-.5rem;
+line-height:20px;
+text-align:right;
+}
+
+.senkawa .navbar .user-dropdown .user-info .user-info div {
+font-size:.8rem;
+}
+
+.senkawa .navbar .user-dropdown .user-info .user-info div:first-of-type {
+font-size:1rem!important;
+font-weight:700;
+}
+
+.senkawa .sidebar {
+float:right;
+width:17rem;
+margin:1rem 1rem 1rem 0;
+}
+
+.senkawa .sidebar .card {
+background-color:#FFF;
+border-radius:0;
+border-color:#ccc;
+}
+
+.senkawa .recent-card h5 {
+margin:1.25rem;
+}
+
+.senkawa .recent-card .link-table a {
+display:block;
+border-top:1px solid #ccc;
+word-wrap:break-word;
+overflow:auto;
+padding:.3rem .5rem;
+}
+
+.senkawa .recent-card .link-table a:last-of-type {
+border-bottom:1px solid #ccc;
+}
+
+.senkawa .recent-card .link-table a span {
+float:right;
+margin-left:.2rem;
+color:#000;
+}
+
+.senkawa .recent-card a.more-link {
+display:block;
+text-align:right;
+padding:.5rem .7rem;
+}
+
+.senkawa .recent-card a:hover {
+background-color:#FCFCFC;
+text-decoration:none;
+}
+
+.senkawa .wiki-article {
+min-height:35rem;
+background-color:#FFF;
+border-right:1px solid #ccc;
+border-bottom:1px solid #ccc;
+word-break:break-all;
+margin:0 19rem 0 0;
+padding:1.5rem 1.5rem 4rem;
+}
+
+.senkawa .wiki-article .site-notice {
+background-color:#F0EF75;
+border-bottom:1px solid #ccc;
+margin:-1.5rem -1.5rem 1.5rem;
+padding:.3rem 1rem;
+}
+
+.senkawa .wiki-article .alert {
+margin-bottom:.7rem;
+}
+
+.senkawa .wiki-article .alert:last-of-type {
+margin-bottom:1rem;
+}
+
+.senkawa .wiki-article>.title {
+font-weight:700;
+margin:0 0 2rem;
+}
+
+.senkawa .wiki-article>h1.title {
+font-size:2.2rem;
+}
+
+.senkawa .wiki-article>h1.title>a {
+color:#000;
+}
+
+.senkawa .wiki-article>.title+.wiki-edit-date {
+font-size:.75rem;
+margin-top:-1.6rem;
+margin-bottom:0;
+float:right;
+}
+
+.senkawa .wiki-article .wiki-article-menu a {
+font-size:.9rem;
+padding:.3rem .8rem;
+}
+
+.senkawa .wiki-article .wiki-article-menu a.discuss-bold {
+background-color:#BBEABB;
+}
+
+.senkawa .wiki-article ul:not([class]) {
+padding-left:2rem;
+}
+
+.senkawa .wiki-content {
+min-height:22rem;
+}
+
+.senkawa .wiki-article tr.no-line+tr td {
+border-top:0;
+padding-top:0;
+padding-left:1.5rem;
+}
+
+.senkawa .wiki-article>footer {
+border-top:1px solid gray;
+text-align:right;
+background-color:#FFF;
+margin:1.5rem 0 0;
+padding:.7rem 0;
+}
+
+.senkawa .wiki-article #previewFrame {
+display:block;
+width:100%;
+height:500px;
+margin-top:40px;
+border:1px solid gray;
+}
+
+.senkawa .wiki-article #editForm #textInput {
+width:100%;
+height:30rem;
+}
+
+.senkawa #uploadForm .row {
+height:5.1rem;
+}
+
+.senkawa #uploadForm #fakeFileInput[readonly] {
+background-color:#FFF;
+cursor:default;
+}
+
+.senkawa #uploadForm #textInput {
+width:100%;
+height:30rem;
+margin:.3rem 0 1rem;
+}
+
+.senkawa #uploadForm #uploadBtn {
+width:7rem;
+}
+
+.senkawa form .error-desc {
+margin-left:.7em;
+color:red;
+}
+
+.senkawa form .btns {
+text-align:right;
+margin-top:2rem;
+}
+
+.senkawa .login-form button[type="submit"],.senkawa .signup-form button[type="submit"] {
+width:5rem;
+}
+
+.senkawa .settings-nav {
+height:2.6rem;
+margin-bottom:1.2rem;
+border:1px solid #ccc;
+padding:.3rem;
+}
+
+.senkawa .settings-nav .nav-pills .nav-link {
+border-radius:0;
+padding:.3rem .5rem;
+}
+
+.senkawa .settings-section h3 {
+margin-top:1.5rem;
+margin-bottom:1rem;
+}
+
+.senkawa .settings-section .form-group .checkbox {
+padding-left:1rem;
+}
+
+.senkawa .settings-section .form-group select {
+margin-left:1rem;
+max-width:16rem;
+}
+
+.senkawa .settings-section .form-group button {
+margin-left:1rem;
+}
+
+.senkawa .settings-section small {
+font-size:80%!important;
+}
+
+.senkawa .mypage-nav {
+float:left;
+width:13rem;
+margin-bottom:1.2rem;
+border:1px solid #ccc;
+padding:.5rem;
+}
+
+.senkawa .mypage-section {
+margin-left:14rem;
+}
+
+.senkawa .license-table {
+table-layout:fixed;
+}
+
+.senkawa.fixed-size .wiki-article {
+border-left:1px solid #ccc;
+}
+
+.senkawa.fixed-size.hide-sidebar .wiki-article {
+margin-right:0;
+}
+
+.senkawa.fixed-size.fixed-800 .content-wrapper,.senkawa.fixed-size.fixed-800 .navbar {
+max-width:800px;
+}
+
+.senkawa.fixed-size.fixed-1000 .content-wrapper,.senkawa.fixed-size.fixed-1000 .navbar {
+max-width:1000px;
+}
+
+.senkawa.fixed-size.fixed-1100 .content-wrapper,.senkawa.fixed-size.fixed-1100 .navbar {
+max-width:1100px;
+}
+
+.senkawa.fixed-size.fixed-1200 .content-wrapper,.senkawa.fixed-size.fixed-1200 .navbar {
+max-width:1200px;
+}
+
+.senkawa.fixed-size.fixed-1300 .content-wrapper,.senkawa.fixed-size.fixed-1300 .navbar {
+max-width:1300px;
+}
+
+.senkawa.fixed-size.fixed-1500 .content-wrapper,.senkawa.fixed-size.fixed-1500 .navbar {
+max-width:1500px;
+}
+
+.senkawa.fixed-size.fixed-1600 .content-wrapper,.senkawa.fixed-size.fixed-1600 .navbar {
+max-width:1600px;
+}
+
+.senkawa.fixed-navbar .wiki-article .wiki-fn-content .target,.senkawa.fixed-navbar .wiki-article .footnote-list .target {
+position:absolute;
+margin-top:-40px;
+}
+
+.senkawa.fixed-navbar .wiki-article {
+margin-top:40px;
+}
+
+.senkawa.fixed-navbar .navbar-wrapper {
+width:100%;
+position:fixed;
+}
+
+.senkawa.fixed-navbar .navbar {
+z-index:90004;
+}
+
+.senkawa.hide-sidebar .sidebar {
+display:none;
+}
+
+.senkawa.hide-sidebar:not(.fixed-size) .wiki-article {
+margin-right:0;
+margin-left:0;
+}
+
+.senkawa.left-sidebar .wiki-article {
+margin-left:19rem;
+margin-right:0;
+border-left:1px solid #ccc;
+}
+
+.senkawa.left-sidebar .sidebar {
+float:left;
+margin:1rem 0 1rem 1rem;
+}
+
+.senkawa .wiki-content.character {
+background-position:right top!important;
+background-repeat:no-repeat!important;
+}
+
+.senkawa .wiki-content.munya-notfound {
+background-image:url(/img/character/munya/notfound.png?1431680016);
+background-size:auto 340px;
+}
+
+.senkawa .wiki-content.sephi-notfound0 {
+background-image:url(/img/character/sephirot/notfound0.png?1434426389);
+background-size:auto 340px;
+}
+
+.senkawa .wiki-content.sephi-notfound1 {
+background-image:url(/img/character/sephirot/notfound1.png?1434426389);
+background-size:auto 340px;
+}
+
+.senkawa .nav-control {
+position:fixed;
+right:0;
+bottom:0;
+list-style-type:none;
+border-bottom:none;
+border-right:none;
+border-top:1px solid #ccc;
+border-left:1px solid #ccc;
+border-top-left-radius:5px;
+background-color:#008275;
+opacity:0.8;
+z-index:90005;
+margin:0;
+padding:0;
+}
+
+.senkawa .nav-control li {
+float:left;
+}
+
+.senkawa .nav-control li a {
+color:#FFF;
+font-size:1.8rem;
+line-height:42px;
+text-align:center;
+width:40px;
+height:40px;
+display:inline-block;
+border-left:2px dashed #ccc;
+}
+
+.senkawa .nav-control li:first-of-type a {
+border-left:none;
+}
+
+body.senkawa.modal-open.modal-open-fix {
+overflow:visible!important;
+padding-right:0!important;
+}
+
+.senkawa .modal#shortcutHelpModal .modal-body b {
+color:#BD4147;
+background-color:#F7F7F9;
+}
+
+.senkawa .modal#searchModal {
+left:auto;
+right:1.5rem!important;
+}
+
+.senkawa .modal#searchModal .modal-content {
+border:0;
+border-radius:0;
+}
+
+.senkawa .modal#searchModal .close {
+top:4px;
+position:relative;
+}
+
+.senkawa .modal#searchModal .modal-header {
+border:1px solid rgba(0,0,0,0.2);
+border-bottom:0;
+padding:.3rem .7rem;
+}
+
+.senkawa .wiki-article table caption {
+color:#000;
+padding-top:0;
+padding-bottom:.2rem;
+text-align:center;
+caption-side:top;
+}
+
+.senkawa .wiki-article .wiki-content code {
+font-style:normal;
+font-weight:400;
+font-size:auto;
+color:#000;
+background-color:transparent;
+border-radius:0;
+margin:0;
+padding:0;
+}
+
+.senkawa .wiki-article .wiki-list {
+padding-left:.5rem;
+}
+
+.senkawa .table th,.senkawa .table td {
+padding:.5rem .7rem;
+}
+
+.senkawa .table tr:last-of-type td {
+border-bottom:1px solid #ECEEEF;
+}
+
+.senkawa .nav {
+list-style:outside none none!important;
+}
+
+.senkawa .alert {
+padding:.5rem .8rem;
+}
+
+.senkawa .alert .close {
+top:0;
+right:0;
+color:#000;
+font-size:1.5rem!important;
+margin-left:.5rem;
+}
+
+.senkawa .input-group .input-group-btn .btn {
+border-radius:0;
+padding:.25rem .5rem;
+}
+
+.senkawa .hidden {
+display:none!important;
+}
+
+.senkawa .popover .popover-title .close {
+display:inline-block;
+float:right;
+font-size:1.3rem;
+margin:-4px -4px 0 0;
+}
+
+.senkawa .modal .close {
+font-size:25px!important;
+}
+
+.senkawa #nprogress .bar {
+background:#BBEABB;
+position:fixed;
+}
+
+.senkawa #nprogress .peg {
+box-shadow:0 0 10px white,0 0 5px #FFF;
+}
+
+.senkawa .line-break {
+display:block;
+border:none;
+border-bottom:1px solid gray;
+}
+
+#div-gpt-ad-1449622106273-0 {
+text-align:center;
+padding-top:1rem;
+padding-bottom:1rem;
+}
+
+.senkawa .nav.nav-pills.nav-stacked .title:first-of-type,.senkawa .settings-section h3:first-of-type {
+margin-top:0;
+}
+
+.senkawa select.form-control,.senkawa .mypage-nav .nav-pills .nav-link {
+border-radius:0;
+}
+
+.senkawa .navbar-nav .nav-item,.senkawa .recent-card,.senkawa .modal#searchModal .modal-body {
+padding:0;
+}
+
+.senkawa .navbar .search-box,.senkawa .wiki-article .wiki-article-menu {
+float:right;
+}
+
+.senkawa .navbar .user-menu-parent,.senkawa .navbar .user-menu-parent>a,.senkawa .navbar .user-menu .user-img {
+width:42px;
+height:42px;
+}
+
+.senkawa .navbar .user-menu-parent,.senkawa .settings-nav .nav-pills .nav-item+.nav-item {
+margin-left:.5rem;
+}
+
+.senkawa .wiki-article>footer p:first-of-type,.senkawa .modal#shortcutHelpModal .modal-body dl {
+margin:0;
+}
+
+.senkawa .login-form,.senkawa .signup-form,.senkawa .login-form input[type="text"],.senkawa .login-form input[type="password"],.senkawa .signup-form input[type="text"],.senkawa .signup-form input[type="email"],.senkawa .signup-form input[type="password"] {
+width:100%;
+}
+
+.senkawa .license-table tr td:first-of-type,.senkawa .modal#shortcutHelpModal .modal-body dt {
+text-align:right;
+}
+
+.senkawa.fixed-size .content-wrapper,.senkawa.fixed-size .navbar {
+margin:0 auto;
+}
+
+.senkawa.hide-sidebar .wiki-article .site-notice,.senkawa.left-sidebar .wiki-article .site-notice {
+margin:-1.5rem -1.5rem 1.5rem;
+}
+
+@media screen and max-width 420px{
+.senkawa .navbar .navbar-brand {
+margin-right:.3rem;
+}
+
+.senkawa .navbar {
+padding:0 .3rem;
+}
+
+.senkawa .navbar-nav .nav-link {
+padding:.6rem .6rem .5rem;
+}
+
+.senkawa .navbar .search-box-parent {
+margin:0 .7rem;
+}
+}
+
+@media screen and max-width 42em{
+.senkawa .navbar-nav .icon {
+margin-right:0;
+}
+
+.senkawa .navbar-nav .nav-link {
+padding:.6rem .9rem .5rem;
+}
+
+.senkawa .navbar-nav .nav-link>.icon-title {
+display:none;
+}
+
+.senkawa .mypage-nav {
+float:none;
+width:auto;
+}
+
+.senkawa .navbar-nav .nav-item+.nav-item,.senkawa .mypage-section {
+margin-left:0;
+}
+}
+
+@media screen and max-width 980px{
+.senkawa .navbar .search-box {
+float:left;
+width:calc(100%+2rem);
+margin-left:-1rem;
+display:table!important;
+height:2rem!important;
+}
+
+.senkawa .navbar .search-box input {
+width:100%;
+height:2.2rem;
+border-left:0;
+}
+
+.senkawa .navbar .search-box .input-group-btn {
+width:1%;
+}
+
+.senkawa .navbar .search-box .btn {
+height:2.2rem;
+padding:.17rem .7rem;
+}
+
+.senkawa .sidebar {
+display:none;
+}
+
+.senkawa .wiki-article {
+border:0!important;
+margin:0;
+padding:.7rem .7rem 4rem;
+}
+
+.senkawa .wiki-article .site-notice {
+margin:-.7rem -.7rem .7rem;
+padding:.2rem .7rem;
+}
+
+.senkawa .wiki-article>.title+.wiki-edit-date {
+margin-top:-1.4rem;
+}
+
+.senkawa .wiki-article .wiki-article-menu~h1.title {
+margin-top:1rem;
+}
+
+.senkawa .wiki-article .wiki-article-menu {
+height:32px;
+border-bottom:.0625rem solid #ccc;
+text-align:right;
+float:none;
+margin:-.7rem -.7rem 0;
+}
+
+.senkawa .wiki-article .wiki-article-menu a {
+height:32px;
+}
+
+.senkawa .wiki-article .wiki-article-menu .btn {
+border-radius:0;
+border-top:0;
+}
+
+.senkawa .wiki-article .alert+.wiki-article-menu {
+border-top:1px solid #ccc;
+}
+
+.senkawa.fixed-size .wiki-article {
+border-left:none!important;
+}
+
+.senkawa.hide-sidebar .wiki-article .site-notice {
+margin:-.7rem -.7rem .7rem;
+}
+
+.senkawa.left-sidebar .wiki-article {
+margin-left:0;
+}
+
+.senkawa .nav-control li a {
+width:45px;
+height:45px;
+font-size:2.2rem;
+line-height:48px;
+}
+
+.senkawa .navbar .search-box .btn:last-of-type,.senkawa .btn-group>.btn:last-child:not(:first-child) {
+border-right:0;
+}
+}
+
+@media screen and min-width 34rem{
+.senkawa .login-form {
+width:28rem;
+margin:0 auto;
+}
+
+.senkawa .signup-form {
+width:34rem;
+margin:0 auto;
+}
+
+.senkawa .login-form label,.senkawa .signup-form label {
+display:block;
+}
+
+.senkawa .login-form input[type="text"],.senkawa .login-form input[type="password"],.senkawa .signup-form input[type="text"],.senkawa .signup-form input[type="email"],.senkawa .signup-form input[type="password"] {
+display:inline-block;
+margin-left:.7rem;
+width:calc(100%-0.7rem);
+}
+}
+
+@media screen and max-width 360px,screen and max-height 360px{
+.senkawa .wiki-content.munya-notfound,.senkawa .wiki-content.sephi-notfound0,.senkawa .wiki-content.sephi-notfound1 {
+background-size:auto 200px;
+}
+}
+
+@media print{
+.senkawa .navbar,.senkawa .tab_bar,.senkawa .wiki-article .wiki-article-menu,.senkawa .nav-control,.senkawa .sidebar {
+display:none!important;
+}
+
+.senkawa .wiki-article {
+border:0;
+margin:0;
+}
+}
