@@ -7,7 +7,7 @@
 
 $(document).ready( function() {
 	
-	$("#contents-3").load("external/3.html");
+	//$("#contents-3").load("external/3.html");
 
 });
 
@@ -29,7 +29,7 @@ $(document).ready( function() {
     	<span class="toc-item"> <a href="#s-1" > 1.개요 </a> </span>
     	<span class="toc-item"> <a href="#s-2" > 2.소개 </a> </span>
     	<span class="toc-item"> <a href="#s-3" > 3.MP3 형식 </a> </span>
-
+    	<span class="toc-item"> <a href="#s-4" > 4. MPEG-1 Audio Layer </a> </span>
 
 
     	</div>
@@ -46,10 +46,16 @@ $(document).ready( function() {
     	<a class="wiki-link-external" href="https://ko.wikipedia.org/wiki/MP3" target="_blank" title="https://ko.wikipedia.org/wiki/MP3">출처(Wikipedia)</a>		
 
     <h2> <a id="s-3" href="#toc">3.</a> MP3 형식 </h2>
+    	<input type = "button" value="불러오기" id="button3" onClick="loadData3();">
     	<div id ="contents-3"></div>
     	
+    <h2> <a id="s-4" href="#toc">4.</a> MPEG-1 Audio Layer </h2>
+    	<input type = "button" value="불러오기(영문)" id="button4" onClick="loadData4();">
+    	<input type = "button" value="불러오기(한글해석)" id="button4" onClick="loadData4Translate();">
+    	<div id ="contents-4"></div>
+    	
 
-		<h2> <a id="s-4" href="#toc">4.</a> MPDDD </h2>
+		
     		
     </div>
     </div>
