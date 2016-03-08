@@ -15,3 +15,24 @@ function loadData4Translate()
 	$("#contents-4").load("external/4-translate.html");
 
 }
+function unloadData4()
+{
+	$("#contents-4").empty();
+
+}
+function loadData5()
+{
+	$("#contents-5").load("external/5.html");
+
+
+}
+function loadData5Translate()
+{
+	$("#contents-5").load("external/5-translate.html");
+
+}
+function unloadData5()
+{
+	$("#contents-5").empty();
+
+}
