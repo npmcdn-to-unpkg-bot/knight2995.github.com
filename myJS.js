@@ -20,10 +20,10 @@ function unloadData4()
 	$("#contents-4").empty();
 
 }
+
 function loadData5()
 {
 	$("#contents-5").load("external/5.html");
-
 
 }
 function loadData5Translate()
@@ -35,4 +35,19 @@ function unloadData5()
 {
 	$("#contents-5").empty();
 
+}
+
+function loadData6()
+{
+	$("#contents-6").load("external/6.html");
+
+}
+function loadData6Translate()
+{
+	$("#contents-6").load("external/6-translate.html");
+
+}
+function unloadData6()
+{
+	$("#contents-6").empty();
 }

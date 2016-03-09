@@ -1,2 +1,175 @@
-<img src="image/encoding.jpg" />
-<img src="image/decoding.jpg" />
+<p>The encoding process is very complex and not fully described here.</p>
+
+<img src="image/encoding.jpg">
+
+<h4> Analysis Polyphase Filterbank </h4>
+
+ <p> A sequence of 1152 PCM samples are filtered into 32 equally spaced frequency subbands
+depending of the Nyquist frequency of the PCM signal. If the sample frequency of the PCM
+signal is 44.1 kHz the Nyquist frequency will be 22.05 kHz. Each subband will be
+approximately 22050/32 = 689 Hz wide. The lowest subband will have a range from 0-689Hz, the next subband 689 – 1378 Hz, etc. Every sample (might) contain signal components
+from 0 – 22.05 kHz that will be filtered into appropriate subband. This means that the number
+of samples has increased by a factor 32 since every subband now stores a subspectra of the
+sample. For example, having filtered 100 samples increases the number of samples to 3200.
+The 100 samples in every subband will then be decimated by a factor 32, hence only every
+thirty-second sample is retained. The number of samples is now reduced from 3200 back to
+100. But note that there has been a data reduction since a sample in a subband does not
+include the whole frequency spectra since it has been filtered.</p>
+<p>
+Since it is not possible to construct bandpass filters with a perfectely square frequency
+response, some aliasing will be introduced by the decimation. </p>
+
+<h4> Modified discrete cosine transform (MDCT) </h4>
+<p>
+	By applying a modified discrete cosine transform to each time frame of subband samples the
+32 subbands will be split into 18 finer subbands creating a granule with a total of 576
+frequency lines. But prior to the MDCT each subband signal has to be windowed. </p>
+<p>
+Windowing is done to reduce artefacts caused by the edges of the time-limited signal
+segment. There are four different window types defined in the MPEG standard (see Figure
+6.2). Depending on the degree of stationarity the psychoacoustic model determines which
+window type to apply and forwards the information to this block.</p>
+<p>
+If the psychoacoustic model decides that the subband signal at the present time frame shows
+little difference from the previous time frame, then the long window type is applied, which
+will enhance the spectral resolution given by the MDCT. Alternatively, if the subband signal
+shows considerable difference from the previous time frame, then the short windows is
+applied. This type of window consists of three short overlapped windows and will improve
+the time resolution given by the MDCT. A higher time resolution is necessary in order to
+control time artifacts, for instance pre-echoes. In order to obtain a better adaptation when
+windows transitions are required, two windows referred to as start windows and stop
+windows, are defined.</p>
+
+<p>
+A long window becomes a start window if it is immediately followed by a short window.
+Similarly, a long window becomes a stop window if it is immediately preceded by a short
+window. The start and stop windows are skewed to account for the steeper sides of the
+adjacent short window.
+</p>
+
+<img src = "image/encoding6-2.jpg" >
+
+<p>
+The aliasing introduced by the polyphase filter bank is now removed to reduce the amount of
+information that needs to be transmitted. This is achieved using a series of butterfly
+computations that add weighted, mirrored versions of adjacent subbands to each other (see
+chapter 7: Alias Reduction).
+
+</p>
+
+<h4> FFT </h4>
+<p> Simultaneously as the signal is processed by the polyphase filterbank it is also transformed to
+the frequency domain by a Fast Fourier Transform. Both a 1024 and a 256 point FFT are
+performed on 1152 PCM samples at the time to give higher frequency resolution and
+information on the spectral changes over time </p>
+
+<h4> Psychoacoustic Model </h4>
+
+<p>
+This block retrieves the input data from the FFT output. Since the samples are in the
+frequency domain they can be applied to a set of algorithms. These algorithms will model the
+human sound perception and hence they can provide information about which parts of the
+audio signals that is audible and which parts are not. This information is useful to decide
+which window types the MDCT should apply and also to provide the Nonuniform
+Quantization block with information on how to quantize the frequency lines. </p>
+
+<p>
+To know which window type to send to the MDCT block the two presently FFT spectra and
+the two previous spectra are compared. If certain differences are found a change to short
+windows requested. As soon as the differences fades away the MDCT block will be informed
+to change back to long (normal) windows (see Figure 6.3) </p>
+
+<img src = "image/encoding6-3.jpg">
+<p>
+The Psychoacoustic Model also analyzes the FFT spectrum to detect dominant tonal
+components and for each critical band masking thresholds are calculated. Frequency
+components below this threshold are masked out. Recall that the scalefactor bands are roughly
+equivalent to the critical bands of human hearing. The thresholds limits for each scalefactor
+band are used by the quantization block to keep the quantization noise below these limits.
+
+</p>
+
+<h4> Nonuniform Quantization </h4>
+<p>
+In these two blocks the scaling, quantization and Huffman coding are applied to 576 spectral
+values at a time. This is done iteratively in two nested loops, a distortion control loop (outer
+loop) and a rate control loop (inner loop). </p>
+
+<strong> rate control loop </strong> 
+<p>
+The rate loop does the quantization of the frequency domain samples and thus also determines
+the required quantization step size. Furthermore the subdivision of the big_values into
+regions, the Huffman table selection decision for each region and the calculation of the
+boundaries between the regions take place here.
+</p>
+<p>
+To begin with the samples are quantized with an increasing step size until the quantized
+values can be coded using one of the available Huffman code tables. A larger step size leads
+to smaller quantized values. Then the overall Huffman coded bit sum is calculated and
+compared with the number of bits available. If the calculated bit sum exceeds the number of
+bits available the quantization step size is further increased and the entire procedure is
+repeated until the available bits are sufficient.
+</p>
+<p>
+The nonlinearity is achieved raising each sample to the power of 3/4. 
+</p>
+<strong> distortion control loop </strong>
+<p>
+This loop controls the quantization noise which is produced by the quantization of the
+frequency domain lines within the rate control loop. The aim is to keep the quantization noise
+below the masking threshold (allowed noise given by the psychoacoustic model) for each
+scalefactor band.
+</p>
+<p>
+To shape the quantization noise scalefactors are applied to the frequency lines within each
+scalefactor band. The scalefactors of all scalefactor bands and the quantization step size are
+then saved before the rate control loop in called. After the inner loop the quantization noise is
+calculated. This is repeated until there is no more scalefactor band with more noise than
+allowed by the threshold. The values of the scalefactors belonging to bands that are too noisy
+are increased for each iteration loop. Finally the noise caused by the quantization will not be
+audible by a human and the loop will exit. </p>
+<p>
+There are still situations where both loops can go on forever depending on the calculated
+threshold. To avoid this there are several conditions in the distortion control loop that can be
+checked to stop the iterations more early.
+</p>
+<p>
+Loops input: <br>
+<li> vector of the magnitudes of the 576 spectral values </li>
+<li> the allowed distortion of the scalefactor bands
+<li> the number of scalefactor bands
+<li> bits available for the Huffman coding and the coding of the scalefactors
+<li> the number of bits in addition to the average number of bits, as demanded by the
+value of the psychoacoustic entropy for the granule.</li>
+Loops output:<br>
+<li> vector of 576 quantized values </li>
+<li> the scalefactors </li>
+<li> quantizer step size information </li>
+<li> number of unused bit available for later use </li>
+<li> preflag (loops preemphasis on/off) </li>
+<li> Huffman code related side information </li>
+- big_values (number of pairs of Huffman coded values, excluding "count1") <br>
+- count1table_select (Huffman code table of absolut values <= 1 at the upper end
+of the spectrum <br>
+- table_select (Huffman code table of regions) <br>
+- region0_cound and region1_count (used to calculate boundaries between regions) <br>
+- part2_3_length <br>
+</p>
+
+<h4> Huffman Encoding </h4>
+<p>
+The quantized values are Huffman coded. Each division of the frequency spectrum can be
+coded using different tables. The Huffman coding is one of the major reasons why the MPEG-
+1 Layer III retains a high quality at low bitrates. </p>
+<h4> Coding of Side Information </h4>
+<p>
+All parameters generated by the encoder are collected to enable the decoder to reproduce the
+audio signal. These are the parameters that reside in the side information part of the frame.
+</p>
+<h4> Bitstream Formatting CRC word generation </h4>
+
+<p>
+In this final block the defined bitstream is generated (see Chapter 5.1). The frame header, side
+information, CRC, Huffman coded frequency lines etc are put together to form frames. Each
+one of these frames represents 1152 encoded PCM samples.
+</p>

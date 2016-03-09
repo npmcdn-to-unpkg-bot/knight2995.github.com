@@ -26,11 +26,12 @@ $(document).ready( function() {
   		<div class="wiki-inner-content">
     	<div class="wiki-macro-toc" id="toc">
     	<div class="toc-indent">
-    	<span class="toc-item"> <a href="#s-1" > 1.개요 </a> </span>
-    	<span class="toc-item"> <a href="#s-2" > 2.소개 </a> </span>
-    	<span class="toc-item"> <a href="#s-3" > 3.MP3 형식 </a> </span>
+    	<span class="toc-item"> <a href="#s-1" > 1. 개요 </a> </span>
+    	<span class="toc-item"> <a href="#s-2" > 2. 소개 </a> </span>
+    	<span class="toc-item"> <a href="#s-3" > 3. MP3 형식 </a> </span>
     	<span class="toc-item"> <a href="#s-4" > 4. MPEG-1 Audio Layer </a> </span>
-    	<span class="toc-item"> <a href="#s-4" > 5. MP3 Encoding/Decoding </a> </span>
+    	<span class="toc-item"> <a href="#s-5" > 5. MP3 Encoding </a> </span>
+    	<span class="toc-item"> <a href="#s-6" > 6. MP3 Decoding </a> </span>
 
 
     	</div>
@@ -53,15 +54,28 @@ $(document).ready( function() {
     <h2> <a id="s-4" href="#toc">4.</a> MPEG-1 Audio Layer </h2>
     	<input type = "button" value="불러오기(영문)" id="button4" onClick="loadData4();">
     	<input type = "button" value="불러오기(한글해석)" id="button4" onClick="loadData4Translate();">
-    	<input type = "button" value="닫기)" id="button4" onClick="unloadData4();">
+    	<input type = "button" value="닫기" id="button4" onClick="unloadData4();">
     	<div id ="contents-4"></div>
 
-    <h2> <a id="s-5" href="#toc">5.</a> MP3 Encoding/Decoding </h2>
+    <h2> <a id="s-5" href="#toc">5.</a> MP3 Encoding </h2>
     	<input type = "button" value="불러오기(영문)"  onClick="loadData5();">
     	<input type = "button" value="불러오기(한글해석)"  onClick="loadData5Translate();">
-    	<input type = "button" value="닫기)"  onClick="unloadData5();">
+    	<input type = "button" value="닫기"  onClick="unloadData5();">
     	<div id ="contents-5"></div>
-    	
+
+    <h2> <a id="s-6" href="#toc">6.</a> MP3 Decoding </h2>
+	    <input type = "button" value="불러오기(영문)"  onClick="loadData6();">
+    	<input type = "button" value="불러오기(한글해석)"  onClick="loadData6Translate();">
+    	<input type = "button" value="닫기"  onClick="unloadData6();">
+    	<div id ="contents-6"></div>
+
+
+
+    	<!--
+	    <a class="wiki-link-external" href="external/Encoding.html">영문판 </a><br>
+	    <a class="wiki-link-external" href="external/Decoding.html">해석판 </a>
+    	<div id ="contents-6"></div>	
+    	-->
 
 		
     		
